@@ -36,6 +36,10 @@ public class MetricsInfluxdbSampleApplication {
     @Value("${influxdb.password:dummy}")
     private String influxdbPassword;
 
+    @Value("${cloud.application.instance_id:app_01}")
+    private String appInstanceId;
+
+
     public static void main(String[] args) {
         SpringApplication.run(MetricsInfluxdbSampleApplication.class, args);
     }
@@ -54,6 +58,7 @@ public class MetricsInfluxdbSampleApplication {
         // the name of the datastore you choose
         influxDB.createDatabase(dbName);
         InfluxDBMetricWriter.Builder builder = new InfluxDBMetricWriter.Builder(influxDB);
+        builder.appInstanceId(appInstanceId);
         builder.databaseName(dbName);
         builder.batchActions(500);    // number of points for batch before data is sent to Influx
         return builder.build();

@@ -22,10 +22,12 @@ public class InfluxDBMetricWriter implements GaugeWriter {
 
     private final InfluxDB influxDB;
     private final String databaseName;
+    private String appInstanceId;
 
     private InfluxDBMetricWriter(Builder builder) {
         this.influxDB = builder.influxDB;
         this.databaseName = builder.databaseName;
+        this.appInstanceId = builder.appInstanceId;
         this.influxDB.createDatabase(this.databaseName);
         this.influxDB.enableBatch(builder.batchActions, builder.flushDuration,
                 builder.flushDurationTimeUnit);
@@ -36,6 +38,7 @@ public class InfluxDBMetricWriter implements GaugeWriter {
     public void set(Metric<?> value) {
         Point point = Point.measurement(value.getName())
                 .time(value.getTimestamp().getTime(), TimeUnit.MILLISECONDS)
+                .tag("app_instance_id",this.appInstanceId)
                 .addField("value", value.getValue())
                 .build();
         this.influxDB.write(this.databaseName, null, point);
@@ -54,6 +57,8 @@ public class InfluxDBMetricWriter implements GaugeWriter {
         private TimeUnit flushDurationTimeUnit = TimeUnit.SECONDS;
         @Setter
         private InfluxDB.LogLevel logLevel = InfluxDB.LogLevel.BASIC;
+        @Setter
+        private String appInstanceId;
 
         public Builder flushDuration(int flushDuration, TimeUnit flushDurationTimeUnit) {
             this.flushDuration = flushDuration;
@@ -64,5 +69,6 @@ public class InfluxDBMetricWriter implements GaugeWriter {
         public InfluxDBMetricWriter build() {
             return new InfluxDBMetricWriter(this);
         }
+
     }
 }
