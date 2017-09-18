@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class MetricsInfluxdbSampleApplication {
 
-    @Value("${influxdb.dbname:my-metrics}")
-    private String dbName;
-
     @Value("${cloud.application.instance_id:app_01}")
     private String appInstanceId;
 
@@ -43,11 +40,8 @@ public class MetricsInfluxdbSampleApplication {
     @Bean
     @ExportMetricWriter
     GaugeWriter influxMetricsWriter() {
-        // the name of the datastore you choose
-        influxDB.createDatabase(dbName);
         InfluxDBMetricWriter.Builder builder = new InfluxDBMetricWriter.Builder(influxDB);
         builder.appInstanceId(appInstanceId);
-        builder.databaseName(dbName);
         builder.batchActions(500);    // number of points for batch before data is sent to Influx
         return builder.build();
     }

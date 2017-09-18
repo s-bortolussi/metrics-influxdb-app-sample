@@ -22,6 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <influxdb.connectors.version>1.0.6</influxdb.connectors.version>
     </properties>
 
     <dependencies>
@@ -49,6 +50,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.orange.spring.cloud.connectors</groupId>
+            <artifactId>spring-cloud-influxdb-spring-service-connector</artifactId>
+            <version>${influxdb.connectors.version}</version>
+        </dependency>
+        <!-- If you intend to deploy the app on Cloud Foundry, add the following -->
+        <dependency>
+            <groupId>com.orange.spring.cloud.connectors</groupId>
+            <artifactId>spring-cloud-influxdb-connectors-cloudfoundry</artifactId>
+            <version>${influxdb.connectors.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -71,6 +85,22 @@
             <releases>
                 <enabled>true</enabled>
             </releases>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-elpaaso-maven</id>
+            <name>bintray</name>
+            <url>http://dl.bintray.com/elpaaso/maven</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
         </repository>
     </repositories>
 
