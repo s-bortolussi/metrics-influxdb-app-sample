@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.0.M3</version>
+        <version>2.0.0.M5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -30,19 +30,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-influx</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.influxdb</groupId>
-            <artifactId>influxdb-java</artifactId>
-            <version>2.7</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -51,16 +47,11 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
-            <groupId>com.orange.spring.cloud.connectors</groupId>
-            <artifactId>spring-cloud-influxdb-spring-service-connector</artifactId>
-            <version>${influxdb.connectors.version}</version>
-        </dependency>
-        <!-- If you intend to deploy the app on Cloud Foundry, add the following -->
-        <dependency>
-            <groupId>com.orange.spring.cloud.connectors</groupId>
-            <artifactId>spring-cloud-influxdb-connectors-cloudfoundry</artifactId>
-            <version>${influxdb.connectors.version}</version>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.1</version>
         </dependency>
 
     </dependencies>
